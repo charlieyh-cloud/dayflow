@@ -23,10 +23,16 @@ export default defineConfig({
       exclude: [
         'src/**/*.test.{ts,tsx}',
         'src/main.tsx',
-        'src/sw.ts',
         'src/types/**',
         'src/**/*.d.ts',
         'src/**/index.ts',
+
+        // 아래는 jsdom 이 아니라 실제 브라우저에서만 의미 있는 코드다.
+        // Playwright(tests/e2e)가 커버하며, 여기서 중복 집계하지 않는다.
+        'src/sw.ts', // Service Worker — jsdom 에 등록 API 가 없다
+        'src/app/**', // 앱 셸·라우트 — e2e/smoke.spec.ts 가 검증
+        'src/components/UpdateBanner.tsx', // virtual:pwa-register 가 필요
+        'src/components/InstallPrompt.tsx', // beforeinstallprompt 이벤트가 필요
       ],
       thresholds: {
         // PRD 8.4: 커버리지 70% 미만이면 CI 실패
