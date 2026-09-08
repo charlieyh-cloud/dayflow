@@ -110,3 +110,15 @@ UI 변경 시 추가로: 키보드만으로 해당 플로우 완주, axe 위반 
 ## Service Worker 위치
 
 `src/sw.ts` 가 소스이며 Workbox `injectManifest` 로 컴파일되어 `dist/sw.js` 로 배포된다. precache manifest 주입과 타입 검사가 필요해 `public/` 에 직접 두지 않는다.
+
+## 확정된 설계 결정 (STEP 5 대비)
+
+- **챗봇 런타임**: 서버 프록시에서 **Claude API 를 도구 호출(tool use) 방식**으로 호출한다. Claude Code 헤드리스는 개발 자동화용이며 사용자 요청을 받는 런타임으로는 쓰지 않는다. 사용자별 세션·작업 디렉터리가 필요하고 응답이 느리기 때문이다. API 키는 서버에만 둔다.
+- **알림 채널**: Web Push 가 주 수단이다. 카카오톡은 보조 채널로 **카카오 로그인 + 나에게 보내기 API**(`/v2/api/talk/memo/default/send`, scope `talk_message`)를 쓴다. 사업자 등록과 검수가 필요 없고 사용자 본인에게만 발송된다. 서버가 사용자별 리프레시 토큰을 관리해야 한다. iOS 미설치 사용자의 폴백으로 특히 유용하다.
+  - 알림톡은 개인사업자 등록 · 채널 비즈니스 인증 · 템플릿 사전 승인 · 중계사 계약이 필요하므로 사용자 규모가 커진 뒤로 미룬다.
+  - 친구톡은 광고성으로 분류되어 야간 발송 제한을 받으므로 리마인더에 쓰지 않는다.
+
+## 배포 환경 주의
+
+- 배포는 GitHub Pages 서브경로(`/dayflow/`)다. **에셋을 절대경로로 참조하지 말 것.** `/favicon.svg` 같은 경로는 사이트 루트를 가리켜 404 가 된다. `import.meta.env.BASE_URL` 을 붙이거나 라우터 `Link` 를 쓴다.
+- GitHub Pages 는 커스텀 헤더를 지원하지 않아 `sw.js` 가 `max-age=600` 으로 내려간다. 정확한 `no-cache` 가 필요하면 Cloudflare Pages 또는 Vercel 로 옮긴다.

@@ -27,6 +27,6 @@
     "exactOptionalPropertyTypes": true,
     "types": ["vite/client", "vite-plugin-pwa/client", "vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src", "tests/setup.ts", "tests/unit", "tests/a11y"],
+  "include": ["src", "tests/setup.ts", "tests/stubs", "tests/unit", "tests/a11y"],
   "exclude": ["tests/e2e"]
 }

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { SkipLink } from '@/components/SkipLink'
 import { OfflineBanner } from '@/components/OfflineBanner'
 import { UpdateBanner } from '@/components/UpdateBanner'
@@ -36,10 +36,18 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <header className={styles.header}>
           <div className={styles.headerInner}>
-            <a className={styles.brand} href="/">
-              <img className={styles.brandMark} src="/favicon.svg" alt="" width="28" height="28" />
+            {/* 서브경로 배포(GitHub Pages)에서도 깨지지 않도록 BASE_URL 을 붙인다.
+                절대경로 "/favicon.svg" 는 사이트 루트를 가리켜 404 가 된다. */}
+            <Link className={styles.brand} to="/">
+              <img
+                className={styles.brandMark}
+                src={`${import.meta.env.BASE_URL}favicon.svg`}
+                alt=""
+                width="28"
+                height="28"
+              />
               DayFlow
-            </a>
+            </Link>
           </div>
 
           <nav className={styles.nav} aria-label="주요">

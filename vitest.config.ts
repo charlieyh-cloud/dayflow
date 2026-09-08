@@ -7,6 +7,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // vite-plugin-pwa 가 빌드 때 만드는 가상 모듈이라 Vitest 에서는 스텁으로 대체한다.
+      'virtual:pwa-register/react': fileURLToPath(new URL('./tests/stubs/pwa-register.ts', import.meta.url)),
     },
   },
   test: {
