@@ -90,7 +90,21 @@ tests/               unit/ · e2e/ · a11y/
 
 `main` 에 병합되면 GitHub Pages 로 자동 배포됩니다. 서브경로 배포에 맞춰 `VITE_BASE_PATH` 가 주입되고, manifest 의 `start_url`·`scope` 와 Service Worker 등록 경로가 이를 따릅니다.
 
+배포 주소: <https://charlieyh-cloud.github.io/dayflow/>
+
 Service Worker 캐시 정책은 `public/_headers`(Cloudflare Pages · Netlify)와 `public/vercel.json` 에 정의되어 있습니다. 다른 호스팅을 쓰더라도 `/sw.js` 에 `no-cache` 를 반드시 적용하세요.
+
+### 알려진 제약 — GitHub Pages 와 Service Worker 캐시
+
+**GitHub Pages 는 커스텀 응답 헤더를 지원하지 않습니다.** `_headers` 파일이 무시되어 `/sw.js` 가 `Cache-Control: max-age=600` 으로 내려갑니다. 최대 10분간 구버전 Service Worker 가 남을 수 있습니다.
+
+완화책은 이미 들어가 있습니다.
+
+- 브라우저가 Service Worker 스크립트를 캐시하는 최대 시간은 24시간으로 제한됩니다.
+- 앱이 한 시간마다 `registration.update()` 로 갱신을 확인합니다.
+- 갱신이 감지되면 "새 버전이 있습니다" 배너로 사용자에게 알립니다.
+
+정확한 `no-cache` 가 필요해지면 Cloudflare Pages 또는 Vercel 로 옮기세요. 설정 파일은 이미 리포지터리에 있습니다. STEP 4 에서 알림 스케줄러용 백엔드를 붙일 때 함께 결정하는 편이 좋습니다 (PRD 열린 질문 6번).
 
 ## 커밋 규칙
 
