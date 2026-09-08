@@ -1,0 +1,262 @@
+/**
+ * 디자인 토큰 — 색상 / 타이포 / 간격 / 모션
+ *
+ * 색상 값은 tests/unit/contrast.test.ts 에서 대비를 자동 검증한다.
+ * (본문 4.5:1, 큰 텍스트·UI 컴포넌트 3:1 — WCAG 2.2 AA)
+ *
+ * 크기는 rem 을 쓴다. 사용자 브라우저 글자 크기 설정을 존중하기 위해
+ * :root 에 px font-size 를 지정하지 않는다.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ── 타이포그래피 (rem 스케일, 1rem = 사용자 기본 크기) ── */
+  --font-sans:
+    'Pretendard', system-ui, -apple-system, 'Segoe UI', Roboto, 'Malgun Gothic', 'Apple SD Gothic Neo',
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+
+  --leading-tight: 1.3;
+  --leading-normal: 1.6;
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ── 간격 ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  /* ── 크기 ── */
+  /* 터치 타겟 최소 44x44 CSS px = 2.75rem (WCAG 2.2 Target Size AA) */
+  --target-min: 2.75rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 62.4375rem;
+  --border-width: 0.0625rem;
+  --focus-ring-width: 0.1875rem;
+  --focus-ring-offset: 0.125rem;
+
+  /* ── 레이어 ── */
+  --z-sticky: 100;
+  --z-banner: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+
+  /* ── 모션 ── */
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.3, 1);
+
+  /* ─────────────── 라이트 테마 ─────────────── */
+  --color-bg: #ffffff;
+  --color-surface: #f4f5f8;
+  --color-surface-raised: #ffffff;
+  --color-overlay: rgb(11 18 32 / 55%);
+
+  --color-text: #16181d;
+  --color-text-muted: #53565f;
+  --color-text-inverse: #ffffff;
+
+  --color-border: #828795;
+  --color-border-strong: #6c7080;
+
+  --color-accent: #25479e;
+  --color-accent-hover: #1b3576;
+  --color-accent-subtle: #e8edfb;
+  --color-on-accent: #ffffff;
+
+  --color-danger: #b3241f;
+  --color-danger-subtle: #fdecea;
+  --color-on-danger: #ffffff;
+
+  --color-warning: #8a5300;
+  --color-warning-subtle: #fdf0dc;
+  --color-on-warning: #ffffff;
+
+  --color-success: #1a6b3c;
+  --color-success-subtle: #e4f4ea;
+  --color-on-success: #ffffff;
+
+  --color-info: #1f5673;
+  --color-info-subtle: #e5f1f7;
+  --color-on-info: #ffffff;
+
+  --color-focus: #16181d;
+  --color-focus-inner: #ffffff;
+
+  --shadow-sm: 0 0.0625rem 0.125rem rgb(11 18 32 / 12%);
+  --shadow-md: 0 0.25rem 0.75rem rgb(11 18 32 / 16%);
+  --shadow-lg: 0 0.75rem 2rem rgb(11 18 32 / 22%);
+}
+
+/* ─────────────── 다크 테마 ─────────────── */
+/* 시스템 설정을 따르되, data-theme 로 명시 선택 시 그 값이 우선한다. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #0b1220;
+    --color-surface: #151c2c;
+    --color-surface-raised: #1c2436;
+    --color-overlay: rgb(0 0 0 / 66%);
+
+    --color-text: #f2f4f8;
+    --color-text-muted: #b3bacb;
+    --color-text-inverse: #0b1220;
+
+    --color-border: #656e84;
+    --color-border-strong: #8e97ab;
+
+    --color-accent: #a9c0ff;
+    --color-accent-hover: #c6d5ff;
+    --color-accent-subtle: #1b2743;
+    --color-on-accent: #0b1220;
+
+    --color-danger: #ff9d96;
+    --color-danger-subtle: #3a1a18;
+    --color-on-danger: #0b1220;
+
+    --color-warning: #e8b866;
+    --color-warning-subtle: #362713;
+    --color-on-warning: #0b1220;
+
+    --color-success: #79d6a0;
+    --color-success-subtle: #12301f;
+    --color-on-success: #0b1220;
+
+    --color-info: #8ccae8;
+    --color-info-subtle: #122c3a;
+    --color-on-info: #0b1220;
+
+    --color-focus: #f2f4f8;
+    --color-focus-inner: #0b1220;
+
+    --shadow-sm: 0 0.0625rem 0.125rem rgb(0 0 0 / 50%);
+    --shadow-md: 0 0.25rem 0.75rem rgb(0 0 0 / 55%);
+    --shadow-lg: 0 0.75rem 2rem rgb(0 0 0 / 62%);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-bg: #0b1220;
+  --color-surface: #151c2c;
+  --color-surface-raised: #1c2436;
+  --color-overlay: rgb(0 0 0 / 66%);
+
+  --color-text: #f2f4f8;
+  --color-text-muted: #b3bacb;
+  --color-text-inverse: #0b1220;
+
+  --color-border: #656e84;
+  --color-border-strong: #8e97ab;
+
+  --color-accent: #a9c0ff;
+  --color-accent-hover: #c6d5ff;
+  --color-accent-subtle: #1b2743;
+  --color-on-accent: #0b1220;
+
+  --color-danger: #ff9d96;
+  --color-danger-subtle: #3a1a18;
+  --color-on-danger: #0b1220;
+
+  --color-warning: #e8b866;
+  --color-warning-subtle: #362713;
+  --color-on-warning: #0b1220;
+
+  --color-success: #79d6a0;
+  --color-success-subtle: #12301f;
+  --color-on-success: #0b1220;
+
+  --color-info: #8ccae8;
+  --color-info-subtle: #122c3a;
+  --color-on-info: #0b1220;
+
+  --color-focus: #f2f4f8;
+  --color-focus-inner: #0b1220;
+
+  --shadow-sm: 0 0.0625rem 0.125rem rgb(0 0 0 / 50%);
+  --shadow-md: 0 0.25rem 0.75rem rgb(0 0 0 / 55%);
+  --shadow-lg: 0 0.75rem 2rem rgb(0 0 0 / 62%);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+/* ─────────────── 고대비 테마 ─────────────── */
+/* 사용자가 설정에서 직접 켜거나, OS 고대비 모드에서 자동 적용된다. */
+:root[data-contrast='high'] {
+  --color-bg: #000000;
+  --color-surface: #000000;
+  --color-surface-raised: #0d0d0d;
+  --color-overlay: rgb(0 0 0 / 85%);
+
+  --color-text: #ffffff;
+  --color-text-muted: #e6e6e6;
+  --color-text-inverse: #000000;
+
+  --color-border: #ffffff;
+  --color-border-strong: #ffffff;
+
+  --color-accent: #7fd4ff;
+  --color-accent-hover: #b3e6ff;
+  --color-accent-subtle: #001b26;
+  --color-on-accent: #000000;
+
+  --color-danger: #ff9d96;
+  --color-danger-subtle: #2b0000;
+  --color-on-danger: #000000;
+
+  --color-warning: #ffd166;
+  --color-warning-subtle: #2b1f00;
+  --color-on-warning: #000000;
+
+  --color-success: #7bed9f;
+  --color-success-subtle: #00240f;
+  --color-on-success: #000000;
+
+  --color-info: #7fd4ff;
+  --color-info-subtle: #001b26;
+  --color-on-info: #000000;
+
+  --color-focus: #ffffff;
+  --color-focus-inner: #000000;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+}
+
+/* OS 강제 색상 모드(Windows 고대비 등)에서는 시스템 색을 존중한다. */
+@media (forced-colors: active) {
+  :root {
+    --color-focus: CanvasText;
+    --color-border: CanvasText;
+    --color-border-strong: CanvasText;
+  }
+}
+
+/* ─────────────── 모션 감소 ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-normal: 0.01ms;
+  }
+}
