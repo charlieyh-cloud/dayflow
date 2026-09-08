@@ -1,0 +1,10 @@
+dist
+dev-dist
+coverage
+node_modules
+playwright-report
+test-results
+package-lock.json
+docs/prd.md
+docs/claude-code-prompts.md
+public/icons
