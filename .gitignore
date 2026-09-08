@@ -9,9 +9,18 @@ dist-ssr/
 build/
 *.local
 
-# env
+# env — 오타로 만든 파일까지 폭넓게 막는다.
+# 실제로 .emv.md 로 저장돼 커밋 직전까지 간 적이 있다.
 .env
 .env.*
+!.env.example
+*.env
+.env*
+.emv*
+.enviroment*
+secrets.*
+*.key
+*.pem
 !.env.example
 
 # test / coverage
