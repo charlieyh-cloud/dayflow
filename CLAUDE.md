@@ -12,16 +12,16 @@
 
 ## 기술 스택
 
-| 영역 | 선택 |
-|---|---|
-| UI | React + TypeScript (strict), Vite |
-| PWA | vite-plugin-pwa / Workbox |
-| 로컬 저장 | IndexedDB (Dexie) |
-| 서버 상태 | TanStack Query (낙관적 업데이트) |
-| 반복 규칙 | rrule (iCalendar RRULE) |
-| 테스트 | Vitest + Testing Library + jest-axe, Playwright (e2e/a11y) |
-| 린트 | ESLint + Prettier + eslint-plugin-jsx-a11y, husky + lint-staged + commitlint |
-| 백엔드 (STEP 4~) | Supabase (PostgreSQL, Auth, Realtime), Web Push (VAPID) |
+| 영역             | 선택                                                                         |
+| ---------------- | ---------------------------------------------------------------------------- |
+| UI               | React + TypeScript (strict), Vite                                            |
+| PWA              | vite-plugin-pwa / Workbox                                                    |
+| 로컬 저장        | IndexedDB (Dexie)                                                            |
+| 서버 상태        | TanStack Query (낙관적 업데이트)                                             |
+| 반복 규칙        | rrule (iCalendar RRULE)                                                      |
+| 테스트           | Vitest + Testing Library + jest-axe, Playwright (e2e/a11y)                   |
+| 린트             | ESLint + Prettier + eslint-plugin-jsx-a11y, husky + lint-staged + commitlint |
+| 백엔드 (STEP 4~) | Supabase (PostgreSQL, Auth, Realtime), Web Push (VAPID)                      |
 
 ## 디렉터리 구조 (PRD 8.1)
 
@@ -106,3 +106,7 @@ UI 변경 시 추가로: 키보드만으로 해당 플로우 완주, axe 위반 
 - 색상만으로 구분되는 UI 만들지 않기.
 - `sw.js`에 장기 캐시 헤더 적용 금지.
 - 위치 정보를 서버에 상시 저장하지 않기.
+
+## Service Worker 위치
+
+`src/sw.ts` 가 소스이며 Workbox `injectManifest` 로 컴파일되어 `dist/sw.js` 로 배포된다. precache manifest 주입과 타입 검사가 필요해 `public/` 에 직접 두지 않는다.
