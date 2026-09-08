@@ -1,0 +1,67 @@
+name: PR 프리뷰
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  preview:
+    name: 프리뷰 빌드
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # Cloudflare Pages 등 프리뷰 호스팅 토큰이 설정된 경우에만 배포한다.
+      # 토큰이 없으면 빌드 산출물만 아티팩트로 남긴다.
+      - name: 빌드 산출물 업로드
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ github.event.pull_request.number }}
+          path: dist
+          retention-days: 7
+
+      - name: 프리뷰 안내 코멘트
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = [
+              '### 프리뷰 빌드 완료',
+              '',
+              '실기기에서 PWA 설치와 푸시를 확인하려면 아티팩트를 내려받아 HTTPS 로 서빙하세요.',
+              '',
+              `- 아티팩트: \`preview-${context.payload.pull_request.number}\``,
+              '- 로컬 확인: `npm run build && npm run preview`',
+              '',
+              '접근성 확인 체크리스트는 PR 본문에 있습니다.',
+            ].join('\n')
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            })
+            const existing = comments.find((c) => c.body?.startsWith('### 프리뷰 빌드 완료'))
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                comment_id: existing.id, body,
+              })
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number, body,
+              })
+            }

@@ -1,0 +1,32 @@
+name: 기능 제안
+description: 새 기능이나 개선을 제안합니다
+labels: ['type:feat']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 어떤 문제를 푸나요
+      description: 기능 자체보다 사용자가 겪는 문제를 먼저 적어 주세요.
+    validations:
+      required: true
+
+  - type: input
+    id: prd
+    attributes:
+      label: 관련 PRD 항목
+      placeholder: 예) F-05-4 이동 시간 반영 알림
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 제안하는 동작
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 우선순위
+      options: ['P0 (없으면 출시 불가)', 'P1 (중요)', 'P2 (있으면 좋음)']
+    validations:
+      required: true

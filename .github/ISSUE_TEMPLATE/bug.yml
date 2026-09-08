@@ -1,0 +1,55 @@
+name: 버그 신고
+description: 동작이 기대와 다릅니다
+labels: ['type:bug']
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: 무슨 일이 있었나요
+      description: 기대한 동작과 실제 동작을 함께 적어 주세요.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 절차
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영역
+      options:
+        - tasks (일정)
+        - categories (카테고리)
+        - notifications (알림)
+        - sw (Service Worker)
+        - sync (동기화)
+        - chat (챗봇)
+        - map (지도)
+        - auth (인증)
+        - views (화면)
+        - 기타
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: 환경
+      placeholder: 예) iPhone 15 / iOS 18 / Safari, 홈 화면 설치됨
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: a11y
+    attributes:
+      label: 접근성 관련
+      options:
+        - label: 이 버그는 키보드·스크린리더·대비 등 접근성에 영향을 줍니다
