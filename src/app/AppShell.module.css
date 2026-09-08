@@ -1,0 +1,107 @@
+.shell {
+  display: grid;
+  /* minmax(0, 1fr) 이 없으면 그리드 아이템이 콘텐츠 최소 너비 아래로 줄지 않아
+     200% 확대 시 문서 전체에 가로 스크롤이 생긴다 (WCAG 1.4.10 Reflow). */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
+}
+
+.header {
+  min-width: 0;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background-color: var(--color-bg);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-width: 72rem;
+  padding: var(--space-3) var(--space-4);
+  margin-inline: auto;
+}
+
+.brand {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  /* 링크도 최소 44x44 터치 타겟을 만족해야 한다. */
+  min-height: var(--target-min);
+  padding-inline: var(--space-2);
+  margin-inline-start: calc(var(--space-2) * -1);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+}
+
+.brandMark {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.nav {
+  min-width: 0;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.navList {
+  display: flex;
+  min-width: 0;
+  gap: var(--space-1);
+  max-width: 72rem;
+  padding: var(--space-2) var(--space-4);
+  margin-inline: auto;
+  overflow-x: auto;
+  list-style: none;
+}
+
+.navLink {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: center;
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radius-md);
+}
+
+.navLink:hover {
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+/* 현재 위치는 색상만이 아니라 굵기와 하단 선으로도 구분한다. */
+.navLinkActive {
+  color: var(--color-accent);
+  font-weight: var(--weight-semibold);
+  background-color: var(--color-accent-subtle);
+  box-shadow: inset 0 -0.1875rem 0 0 var(--color-accent);
+}
+
+.main {
+  min-width: 0;
+  width: 100%;
+  max-width: 72rem;
+  padding: var(--space-5) var(--space-4);
+  margin-inline: auto;
+}
+
+.footer {
+  padding: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  border-top: var(--border-width) solid var(--color-border);
+}
